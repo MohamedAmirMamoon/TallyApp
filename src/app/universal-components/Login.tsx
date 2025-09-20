@@ -8,16 +8,16 @@ export default function Login() {
   const { login } = useAuth()
   
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault() // Prevent default form submission
+    e.preventDefault() 
     console.log('Attempting login with:', email, password)
     try {
       await login(email, password)
-      console.log('Login successful, redirecting...')
+      console.log(' successful, redirecting...')
       // Redirect to materials page after successful login
       router.push('/materials')
     } 
     catch (error: any) {
-      console.error('Login failed:', error)
+      console.error(' failed:', error)
       alert('Login failed: ' + (error.message || 'Unknown error'))
     }
   }

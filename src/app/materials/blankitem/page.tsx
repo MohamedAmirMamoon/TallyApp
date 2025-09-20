@@ -33,11 +33,14 @@ export default function BlankItem({ items, onChangeQuantity }: BlankitmeProps) {
                         {(item.imagePreview || item.image) && (
                             <div className="w-12 h-12 mr-4 rounded-md border border-gray-300 bg-white flex items-center justify-center overflow-hidden">
                                 <img 
-                                    src={item.imagePreview || (item.image.startsWith('http') ? item.image : `/images/${item.image}`)} 
+                                    src={item.image.startsWith('http') ? item.image : `/images/${item.image}`}
                                     alt={item.name} 
                                     className="w-12 h-12 object-contain" 
+                                    onLoad={() => console.log('Image loaded successfully:', item.image)}
                                     onError={(e) => {
-                                        // Fallback to a placeholder if image fails to load
+                                        console.log('Image failed to load:', item.image)
+                                        console.log('Image preview:', item.imagePreview)
+                                        // fallbackk to a placeholder if image fails to load
                                         e.currentTarget.src = 'https://via.placeholder.com/48x48.png'
                                     }}
                                 />

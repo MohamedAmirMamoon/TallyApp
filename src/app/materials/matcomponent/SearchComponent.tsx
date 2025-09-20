@@ -25,6 +25,7 @@ export default function MatComponent() {
                 name: formData.name,
                 image: formData.image || formData.imagePreview || '',
                 imagePreview: formData.imagePreview || '',
+                imageFile: formData.imageFile,
                 color: formData.color,
                 size: formData.size,
                 quantity: formData.quantity,

@@ -9,6 +9,7 @@ export interface MaterialItem {
   name: string
   image: string
   imagePreview?: string
+  imageFile?: File
   color: string
   size: string
   quantity: string
@@ -52,11 +53,34 @@ export function useMaterials(userId: string | null) {
   const addMaterial = async (material: Omit<MaterialItem, 'id' | 'userId' | 'createdAt'>) => {
     if (!userId) throw new Error('User not authenticated')
     
+    let imageUrl = material.image || ''
+    
+    // Upload image to Firebase Storage if imageFile is provided
+    if (material.imageFile) {
+      try {
+        const imageRef = ref(storage, `materials/${userId}/${Date.now()}_${material.imageFile.name}`)
+        console.log('Uploading image to:', imageRef.fullPath)
+        await uploadBytes(imageRef, material.imageFile)
+        imageUrl = await getDownloadURL(imageRef)
+        console.log('Image uploaded successfully:', imageUrl)
+        console.log('Image URL type:', typeof imageUrl)
+      } catch (error) {
+        console.error('Error uploading image:', error)
+        // Continue without image if upload fails
+      }
+    }
+    
+    // Remove imageFile from the data before saving to Firestore
+    const { imageFile, ...materialData } = material
+    
     const docRef = await addDoc(collection(db, 'materials'), {
-      ...material,
+      ...materialData,
+      image: imageUrl, // This should be the Firebase Storage URL
       userId,
       createdAt: new Date()
     })
+    
+    console.log('Saved to Firestore with image URL:', imageUrl)
     return docRef.id
   }
 
