@@ -46,7 +46,7 @@ export default function BlankItem({ items, onChangeQuantity }: BlankitmeProps) {
                                 />
                             </div>
                         )}
-                            <div className="flex items-center space-x-2 text-[12px]">
+                            <div className="flex items-center space-x-2 font-uncut-sans text-[#333333] text-[15px]">
                                 <div>{item.name}</div>
                                 <span></span>
                                 <span>-</span>
