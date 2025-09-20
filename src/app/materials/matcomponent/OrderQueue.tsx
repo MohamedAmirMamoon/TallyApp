@@ -13,6 +13,7 @@ export default function OrderQueue() {
         return quantity < threshold
     })
 
+
     if (loading) {
         return (
             <div className="text-center py-8">
