@@ -23,7 +23,7 @@ export function useMaterials(userId: string | null) {
   const [materials, setMaterials] = useState<MaterialItem[]>([])
   const [loading, setLoading] = useState(true)
 
-  // Load materials for this user
+  // load for materials for this user
   useEffect(() => {
     if (!userId) {
       setMaterials([])
@@ -49,13 +49,13 @@ export function useMaterials(userId: string | null) {
     return () => unsubscribe()
   }, [userId])
 
-  // Add new material
+  // adding new material
   const addMaterial = async (material: Omit<MaterialItem, 'id' | 'userId' | 'createdAt'>) => {
     if (!userId) throw new Error('User not authenticated')
     
     let imageUrl = material.image || ''
     
-    // Upload image to Firebase Storage if imageFile is provided
+    // upload the image here
     if (material.imageFile) {
       try {
         const imageRef = ref(storage, `materials/${userId}/${Date.now()}_${material.imageFile.name}`)
@@ -70,7 +70,7 @@ export function useMaterials(userId: string | null) {
       }
     }
     
-    // Remove imageFile from the data before saving to Firestore
+    // remove file from firesotre
     const { imageFile, ...materialData } = material
     
     const docRef = await addDoc(collection(db, 'materials'), {
@@ -84,12 +84,12 @@ export function useMaterials(userId: string | null) {
     return docRef.id
   }
 
-  // Update material
+  // update
   const updateMaterial = async (id: string, updates: Partial<MaterialItem>) => {
     await updateDoc(doc(db, 'materials', id), updates)
   }
 
-  // Delete material
+  // del material
   const deleteMaterial = async (id: string) => {
     await deleteDoc(doc(db, 'materials', id))
   }

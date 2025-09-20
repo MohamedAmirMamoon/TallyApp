@@ -62,7 +62,7 @@ export default function OrderQueue() {
                                 )}
                             </div>
 
-                            {/* Item Details */}
+                    
                             <div className="text-center">
                                 <h3 className="text-lg font-uncut-sans font-semibold text-gray-900 mb-2">
                                     {item.name}
@@ -71,7 +71,7 @@ export default function OrderQueue() {
                                     {item.color} / {item.size}
                                 </p>
 
-                                {/* Stock Info */}
+                               
                                 <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
                                     <div className="text-sm text-red-600 font-uncut-sans mb-1">
                                         Current: {quantity} / {threshold}
@@ -81,7 +81,6 @@ export default function OrderQueue() {
                                     </div>
                                 </div>
 
-                                {/* Buy Button */}
                                 {item.productLink ? (
                                     <a
                                         href={item.productLink}

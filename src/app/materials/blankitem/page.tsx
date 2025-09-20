@@ -28,7 +28,7 @@ export default function BlankItem({ items, onChangeQuantity }: BlankitmeProps) {
             
         <div>
             {items.map((item: MaterialItem, index: number) => (
-                    <div key={index} className="flex justify-between items-center font-uncut-sans text-2xl text-black font-uncut-sans border-gray-300 rounded p-4 mb-4">
+                    <div key={index} className="flex justify-between items-center font-uncut-sans text-2xl text-black font-uncut-sans border-gray-300 rounded p-4 pb-0 mb-1">
                         <div className="flex items-center space-x-4">
                         {(item.imagePreview || item.image) && (
                             <div className="w-12 h-12 mr-4 rounded-md border border-gray-300 bg-white flex items-center justify-center overflow-hidden">
