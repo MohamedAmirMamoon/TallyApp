@@ -77,10 +77,7 @@ export default function Signup() {
     setLoading(true)
     
     try {
-      await signup(formData.email, formData.password, {
-        name: formData.name,
-        occupation: formData.occupation
-      })
+      await signup(formData.email, formData.password, formData.name)
       console.log('Signup successful, redirecting...')
       router.push('/materials')
     } catch (error: any) {
