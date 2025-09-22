@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import MaterialForm from "./MaterialForm";
-import BlankItem from "../blankitem/page";
+import BlankItem from "../blankitem/BlankItem";
 import { useMaterials, MaterialItem } from "../../hooks/useMaterials";
 import { useAuth } from "../../hooks/useAuth";
 
