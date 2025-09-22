@@ -13,12 +13,12 @@ interface MaterialItem {
 }
 
 
-interface BlankitmeProps {
+interface BlankItemProps {
     items: MaterialItem[];
     onChangeQuantity?: (index: number, delta: number) => void;
 }
 
-export default function BlankItem({ items, onChangeQuantity }: BlankitmeProps) {
+export default function BlankItem({ items, onChangeQuantity }: BlankItemProps) {
   return (
 
 
