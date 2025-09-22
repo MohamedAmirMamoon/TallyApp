@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword, updateProfile, User as FirebaseUser } from 'firebase/auth'
 import { auth } from '../auth/firebase'
 
 type User = {
@@ -56,5 +56,21 @@ export function useAuth() {
     }
   }
   
-  return { user, loading, login, logout }
+  // Signup function
+  const signup = async (email: string, password: string, name: string) => {
+    setLoading(true)
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      await updateProfile(userCredential.user, {
+        displayName: name
+      })
+    } catch (error) {
+      console.error('Signup failed:', error)
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  return { user, loading, login, logout, signup }
 }
