@@ -50,11 +50,15 @@ export default function OrderQueue() {
                             <div className="w-full h-32 mb-4 rounded-lg border border-gray-200 bg-gray-50 flex items-center justify-center overflow-hidden">
                                 {(item.imagePreview || item.image) ? (
                                     <img 
-                                        src={item.imagePreview || item.image || '/placeholder-image.svg'} 
+                                        src={item.image.startsWith('http') ? item.image : `/images/${item.image}`} 
                                         alt={item.name} 
                                         className="w-full h-full object-contain" 
+                                        onLoad={() => console.log('OrderQueue image loaded successfully:', item.image)}
                                         onError={(e) => {
-                                            e.currentTarget.src = '/placeholder-image.svg'
+                                            console.log('OrderQueue image failed to load:', item.image)
+                                            console.log('OrderQueue image preview:', item.imagePreview)
+                                            // fallback to a placeholder if image fails to load
+                                            e.currentTarget.src = 'https://via.placeholder.com/200x128.png'
                                         }}
                                     />
                                 ) : (

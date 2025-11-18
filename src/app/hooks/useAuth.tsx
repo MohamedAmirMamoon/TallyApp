@@ -17,6 +17,11 @@ export function useAuth() {
   
   // Listen for auth state changes
   useEffect(() => {
+    if (!auth) {
+      setLoading(false)
+      return
+    }
+    
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser: FirebaseUser | null) => {
       if (firebaseUser) {
         setUser({
@@ -36,6 +41,9 @@ export function useAuth() {
   
   // Login function
   const login = async (email: string, password: string) => {
+    if (!auth) {
+      throw new Error('Firebase not initialized')
+    }
     setLoading(true)
     try {
       await signInWithEmailAndPassword(auth, email, password)
@@ -49,6 +57,9 @@ export function useAuth() {
   
   // Logout function
   const logout = async () => {
+    if (!auth) {
+      return
+    }
     try {
       await signOut(auth)
     } catch (error) {
@@ -58,6 +69,9 @@ export function useAuth() {
   
   // Signup function
   const signup = async (email: string, password: string, name: string) => {
+    if (!auth) {
+      throw new Error('Firebase not initialized')
+    }
     setLoading(true)
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password)

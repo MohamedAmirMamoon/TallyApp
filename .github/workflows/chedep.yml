@@ -1,0 +1,37 @@
+Title: Check Dependencies
+
+Description: Check for dependencies in the project
+
+Steps:
+1. Check for dependencies in the project
+2. If dependencies are found, print the dependencies
+3. If no dependencies are found, print a message saying "No dependencies found"
+
+Runs on: ubuntu-latest
+
+Permissions:
+read-only
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 9 * * *" 
+
+jobs:
+  check-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+        run: npm list --depth=0
+
+      - name: Print dependencies
+        run: |
+          echo "Dependencies:"
