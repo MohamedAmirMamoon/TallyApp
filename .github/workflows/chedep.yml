@@ -1,6 +1,4 @@
-Title: Check Dependencies
-
-Description: Check for dependencies in the project
+name: Check Dependencies
 
 
 on:
