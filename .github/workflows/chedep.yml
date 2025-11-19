@@ -37,12 +37,22 @@ jobs:
       - name: Upload dependency graph
         run: |
           if [ -f deps.json ]; then
-            curl -X POST "https://anchor-wine.vercel.app/api/deps" \
+            echo "Uploading dependency data to API..."
+            curl -v -X POST "https://anchor-wine.vercel.app/api/deps" \
               -H "Content-Type: application/json" \
-              --data-binary @deps.json
+              --data-binary @deps.json \
+              -w "\n\nHTTP Status: %{http_code}\n"
+            
+            if [ $? -eq 0 ]; then
+              echo "✅ Upload completed"
+            else
+              echo "❌ Upload failed"
+              exit 1
+            fi
           else
             echo "Error: deps.json file not found"
             exit 1
+          fi
           
 
       
