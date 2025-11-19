@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: '20'
 
+
       - name: Install dependencies
         run: |
           npm install
@@ -42,7 +43,7 @@ jobs:
               -H "Content-Type: application/json" \
               --data-binary @deps.json \
               -w "\n\nHTTP Status: %{http_code}\n"
-            
+          
             if [ $? -eq 0 ]; then
               echo "✅ Upload completed"
             else
