@@ -19,19 +19,30 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
       - name: Install dependencies
         run: |
           npm install
           npm list --depth=0
 
-      - name: Print dependencies
+      - name: Generate dependency JSON
         run: |
-          echo "Dependencies:"
+          npm list --json --depth=0 > deps.json || npm list --json > deps.json
+          cat deps.json
 
       - name: Upload dependency graph
         run: |
-          curl -X POST "https://anchor-wine.vercel.app/api/deps" \
-            -H "Content-Type: application/json" \
-            --data-binary @deps.json
+          if [ -f deps.json ]; then
+            curl -X POST "https://anchor-wine.vercel.app/api/deps" \
+              -H "Content-Type: application/json" \
+              --data-binary @deps.json
+          else
+            echo "Error: deps.json file not found"
+            exit 1
+          fi
 
       
