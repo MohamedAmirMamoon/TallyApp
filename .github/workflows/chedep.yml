@@ -34,8 +34,6 @@ jobs:
           npm list --json --depth=0 > deps.json || npm list --json > deps.json
           cat deps.json
 
-
-
       - name: Upload dependency graph
         run: |
           if [ -f deps.json ]; then
