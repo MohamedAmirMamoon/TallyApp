@@ -43,6 +43,6 @@ jobs:
           else
             echo "Error: deps.json file not found"
             exit 1
-          fi
+          
 
       
